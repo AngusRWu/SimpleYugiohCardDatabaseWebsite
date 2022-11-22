@@ -6,3 +6,4 @@ the info of the searched card and add to my database.
 
 The Api I used is from this website https://ygoprodeck.com/api-guide/.
 
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/72529469/203223876-02f0288b-2533-4360-a7b8-dd7521694318.gif)
