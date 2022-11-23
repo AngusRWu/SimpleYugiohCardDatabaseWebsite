@@ -20,74 +20,52 @@ function checkDB() {
                         getApiCardInfo();
                 }
                 else {
-                        // console.log(data);
+                        
+                        // gets the data from ajax call and store in variable
                         var parsed = JSON.parse(data);
-                        // console.log(parsed["id"]);
+                        
+                        // Assign the data values to each id on the HTML client side
                         $("#id")[0].innerHTML = parsed["id"];
-                        // $("#id").append(parsed["id"]);
                         $("#name")[0].innerHTML = parsed["name"];
-                        // $("#name").append(parsed["name"]);
                         $("#type")[0].innerHTML = parsed["type"];
-                        // $("#type").append(parsed["type"]);
                         $("#description")[0].innerHTML = parsed["description"];
-                        // $("#description").append(parsed["description"]);
                         $("#atk")[0].innerHTML = parsed["atk"];
-                        // $("#atk").append(parsed["atk"]);
                         $("#def")[0].innerHTML = parsed["def"];
-                        // $("#def").append(parsed["def"]);
                         $("#level")[0].innerHTML = parsed["level"];
-                        // $("#level").append(parsed["level"]);
                         $("#race")[0].innerHTML = parsed["race"];
-                        //$("#race").append(parsed["race"]);
                         $("#attribute")[0].innerHTML = parsed["attribute"];
-                        //$("#attribute").append(parsed["attribute"]);
-                        console.log("from CheckDB\t" + parsed["image_link"]);
+                        
+                        // console.log("from CheckDB\t" + parsed["image_link"]);
                         $("img").attr("src", parsed["image_link"]);
                         $("img").show();
                         $(".textInfo").show();
                         
                 }
-                // var json = JSON.parse(data);
-                // var length = Object.keys(json).length;
-                // for (var i = 0; i < length; i++) {
-                //         console.log(json[i]);
-                // }
-
         }).fail(function(error) {
                 console.log("error", error.statusText);
         });
 
 }
 
+// Gets Yugioh card info from the API then adds it to my personal database
 function getApiCardInfo() {
+        // gets the searched name from the html client side
         var searchValue = {"name" : document.getElementById("search").value};
-        alert(searchValue.name);
+        // call ajax to the yugioh API and pass in the searched value to the API call
         a = $.ajax({
                 url: URL + "name=" + searchValue.name,
                 method: "GET"
+
+                // retrieves data which gets the card information from Yugioh API
+                // Card info will be update on the html client side.
         }).done(function(data) {
                 // console.log(data.data[0]);
+
+                // gets the data from ajax call and store in variable
                 var dataValues = data.data[0];
-                console.log(insertCardInfo(dataValues));
-
-                // $("#id").append(dataValues.id);
-                // $("#name").html = "";
-                // $("#name").append(dataValues.name);
-                // $("#type").html = "";
-                // $("#type").append(dataValues.type);
-                // $("#description").html = "";
-                // $("#description").append(dataValues.desc);
-                // $("#atk").html = "";
-                // $("#atk").append(dataValues.atk);
-                // $("#def").html = "";
-                // $("#def").append(dataValues.def);
-                // $("#level").html = "";
-                // $("#level").append(dataValues.level);
-                // $("#race").html = "";
-                // $("#race").append(dataValues.race);
-                // $("#attribute").html = "";
-                // $("#attribute").append(dataValues.attribute);
-
+                // console.log(insertCardInfo(dataValues));
+                
+                // Assign the data values to each id on the HTML client side
                 $("#id")[0].innerHTML = dataValues.id;
                 $("#name")[0].innerHTML = dataValues.name;
                 $("#type")[0].innerHTML = dataValues.type;
@@ -111,8 +89,11 @@ function getApiCardInfo() {
         });
 }
 
+// A function to insert new card information to my database
 function insertCardInfo(dataValues) {
         // console.log(dataValues);
+
+        // calls ajax to insertCard.php and inserts data
         a = $.ajax({
                 url: "insertCard.php",
                 method: "POST",
